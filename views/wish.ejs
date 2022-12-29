@@ -100,23 +100,26 @@
             <div class="product-grid col-xs-12 col-sm-6 col-md-3" id="<%=data[i].id%>">
 				<div class="product-item">
 				  <div class="image">
-					<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Product 1" >
+					<img src="<%=data[i].image_url%>" alt="Product 1" >
 				  </div>
 				  <div class="caption">
 					<div class="name text-center">
-					  <%= data[i].seed %>
+					  <%= data[i].item_name %>
 					</div>
 					<div class="price">
 					  <span>$
-                        <%=data[i].cost %>
-                      </span>
+              <%=data[i].cost %>
+              <%=data[i].quantity %>
+            </span>
 					</div>
 					<div class="cart">
                         <form method="post" action="/remove_wish">
                             <input type="hidden" name="number" value="<%=number%>">
-                            <input type="hidden" name="id" value="<%=data[i].item_code%>">
-                            <input type="hidden" name="seed" value="<%=data[i].seed%>">
+                            <input type="hidden" name="item_code" value="<%=data[i].item_code%>">
+                            <input type="hidden" name="item_name" value="<%=data[i].item_name%>">
                             <input type="hidden" name="cost" value="<%=data[i].cost%>">
+                            <input type="hidden" name="quantity" value="<%=data[i].quantity%>">
+                            <input type="hidden" name="image_url" value="<%=data[i].image_url%>">
                             <input type="hidden" name="cart_or_wish" value="1">
                             <button type="submit" class="btn btn-primary">Add to Cart</button>
                         </form>
@@ -124,9 +127,7 @@
 				  </div>
                   <form method="post" action="/remove_wish">
                     <input type="hidden" name="number" value="<%=number%>">
-                    <input type="hidden" name="id" value="<%=data[i].item_code%>">
-                    <input type="hidden" name="seed" value="<%=data[i].seed%>">
-                    <input type="hidden" name="cost" value="<%=data[i].cost%>">
+                    <input type="hidden" name="item_code" value="<%=data[i].item_code%>">
                     <input type="hidden" name="cart_or_wish" value="0">
                     <button type="submit" class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i style="color:red" class="fa fa-heart"></i></button>
                   </form>

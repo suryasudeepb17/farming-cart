@@ -101,28 +101,27 @@
             <div class="product-grid col-xs-12 col-sm-6 col-md-3" id="<%=data[i].id%>">
 				<div class="product-item">
 				  <div class="image">
-					<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Product 1" >
+					<img src="<%=data[i].image_url%>" alt="Product 1" >
 				  </div>
 				  <div class="caption">
 					<div class="name text-center">
-					  <%= data[i].seed %>
+					  <%= data[i].item_name %>
 					</div>
 					<div class="price">
 					  <span>$
-                        <%=data[i].cost %>
-                      </span>
+              <%=data[i].cost %>
+              <%=data[i].quantity %>              
+            </span>
 					</div>
 					<div class="cart">
                         <form method="post" action="/remove_cart">
                             <input type="hidden" name="number" value="<%=number%>">
                             <input type="hidden" name="id" value="<%=data[i].item_code%>">
-                            <input type="hidden" name="seed" value="<%=data[i].seed%>">
-                            <input type="hidden" name="cost" value="<%=data[i].cost%>">
                             <button type="submit" class="btn btn-primary">Remove from Cart</button>
                         </form>
 					</div>
 				  </div>
-                    <button type="button" style="display:none" class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i style="color:red" class="fa fa-heart"></i></button>
+            <button type="button" style="display:none" class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i style="color:red" class="fa fa-heart"></i></button>
 				    <button type="button" style="display:none" class="btn btn-default compare" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fa fa-circle-o"></i></button>
 				</div>
 			</div>

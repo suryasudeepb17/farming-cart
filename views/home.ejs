@@ -176,33 +176,30 @@
             <div class="product-grid col-xs-12 col-sm-6 col-md-3" id="<%=data[i].id%>">
 				<div class="product-item">
 				  <div class="image">
-					<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Product 1" >
+					<img src="<%=data[i].image_url%>" alt="Product 1" >
 				  </div>
 				  <div class="caption">
 					<div class="name text-center">
-					  <%= data[i].seed %>
+					  <%= data[i].item_name %>
 					</div>
 					<div class="price">
 					  <span>$
-                        <%=data[i].cost %>
+                        <%=data[i].cost  %>
+						<%=data[i].quantity%>
                       </span>
 					</div>
 					<div class="cart">
                         <% if(number){ %>
                             <%if(cart_data.includes(data[i].id)) { %>
-                                <form method="post" action="/add-cart">
-                                    <input type="hidden" name="number" value="<%=number%>">
-                                    <input type="hidden" name="id" value="<%=data[i].id%>">
-                                    <input type="hidden" name="seed" value="<%=data[i].seed%>">
-                                    <input type="hidden" name="cost" value="<%=data[i].cost%>">
                                     <a href="/cart" style="background-color:orange" class="btn btn-primary">Item Added! Go to Cart</a>
-                                </form>
                             <% } else { %>
                                 <form method="post" action="/add-cart">
                                     <input type="hidden" name="number" value="<%=number%>">
-                                    <input type="hidden" name="id" value="<%=data[i].id%>">
-                                    <input type="hidden" name="seed" value="<%=data[i].seed%>">
+                                    <input type="hidden" name="item_code" value="<%=data[i].id%>">
+                                    <input type="hidden" name="item_name" value="<%=data[i].item_name%>">
                                     <input type="hidden" name="cost" value="<%=data[i].cost%>">
+									<input type="hidden" name="quantity" value="<%=data[i].quantity%>">
+                                    <input type="hidden" name="image_url" value="<%=data[i].image_url%>">									
                                     <button type="submit" class="btn btn-primary">Add to Cart</button>
                                 </form>
                             <% } %>
@@ -213,20 +210,16 @@
 				  </div>
                   <% if(number){ %>
                     <%if(wish_data.includes(data[i].id)) { %>
-                        <form method="post" action="/add-wish">
-                            <input type="hidden" name="number" value="<%=number%>">
-                            <input type="hidden" name="id" value="<%=data[i].id%>">
-                            <input type="hidden" name="seed" value="<%=data[i].seed%>">
-                            <input type="hidden" name="cost" value="<%=data[i].cost%>">
-                            <a href = '/wish'  class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i style="color:red" class="fa fa-heart"></i></a>
-                            <button type="button" class="btn btn-default compare" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fa fa-circle-o"></i></button>
-                        </form>
+                        <a href = '/wish'  class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i style="color:red" class="fa fa-heart"></i></a>
+                        <button type="button" class="btn btn-default compare" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fa fa-circle-o"></i></button> 
                     <% } else { %>
                         <form method="post" action="/add-wish">
                             <input type="hidden" name="number" value="<%=number%>">
-                            <input type="hidden" name="id" value="<%=data[i].id%>">
-                            <input type="hidden" name="seed" value="<%=data[i].seed%>">
+                            <input type="hidden" name="item_code" value="<%=data[i].id%>">
+                            <input type="hidden" name="item_name" value="<%=data[i].item_name%>">
                             <input type="hidden" name="cost" value="<%=data[i].cost%>">
+							<input type="hidden" name="quantity" value="<%=data[i].quantity%>">
+                            <input type="hidden" name="image_url" value="<%=data[i].image_url%>">
                             <button type="submit" class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
 				            <button type="button" class="btn btn-default compare" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fa fa-circle-o"></i></button>
                         </form>
@@ -367,10 +360,10 @@
 
 
 
-  <script src="/assets/js/jquery.min.js"></script>
-  <script src="/assets/js/popper.js"></script>
-  <script src="/assetsjs/bootstrap.min.js"></script>
-  <script src="/assets/js/main.js"></script>
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/popper.js"></script>
   </body>
 </html>
 

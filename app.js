@@ -29,27 +29,34 @@ const userschema=new mongoose.Schema({
 const userschema2=new mongoose.Schema({
     mobile:String,
 });
-const seed_schema=new mongoose.Schema({
-    seed:String,
-    cost:Number
+const item_schema=new mongoose.Schema({
+    item_name:String,
+    cost:Number,
+    item_type:String,
+    quantity:String,
+    image_url:String
 })
 const cart_schema=new mongoose.Schema({
     item_code:String,
     number:String,
-    seed:String,
+    item_name:String,
     cost:Number,
+    quantity:String,
+    image_url:String
 });
 const wish_schema=new mongoose.Schema({
     item_code:String,
     number:String,
-    seed:String,
+    item_name:String,
     cost:Number,
+    quantity:String,
+    image_url:String
 });
 
 
 const OTP=mongoose.model("OTP",userschema);
 const mobile_number=mongoose.model("USER",userschema2);
-const seed=mongoose.model("seeds",seed_schema);
+const seed=mongoose.model("items",item_schema);
 const cart=mongoose.model("cart",cart_schema);
 const wish=mongoose.model("wish",wish_schema);
 
@@ -263,10 +270,8 @@ app.get('/cart',(req,res)=>{
 
 app.post('/remove_cart',(req,res)=>{
     const number=req.body.number;
-    const id=req.body.id;
-    const item=req.body.seed;
-    const cost=req.body.cost;
-    cart.deleteOne({item_code:id,number:number,seed:item,cost:cost},function(err){
+    const item_code=req.body.item_code;
+    cart.deleteOne({item_code:item_code,number:number},function(err){
         if(err)
         {
             console.log('cant delete the cart');
@@ -284,19 +289,23 @@ app.post('/remove_cart',(req,res)=>{
     })
 })
 app.post('/remove_wish',(req,res)=>{
-    const number=req.body.number;
-    const id=req.body.id;
-    const item=req.body.seed;
-    const cost=req.body.cost;
     const cart_or_wish=req.body.cart_or_wish;
     if(cart_or_wish==1)
     {
+        const number=req.body.number;
+        const item_code=req.body.item_code;
+        const item_name=req.body.item_name;
+        const cost=req.body.cost;
+        const quantity=req.body.quantity;
+        const image_url=req.body.image_url;
         const newcart=new cart({
-            item_code:id,
-            number:number,
-            seed:item,
-            cost:cost,
-        })
+        item_code:item_code,
+        number:number,
+        item_name:item_name,
+        cost:cost,
+        quantity:quantity,
+        image_url:image_url
+    })
         newcart.save(function(err)
         {
             if(err)
@@ -306,7 +315,7 @@ app.post('/remove_wish',(req,res)=>{
             else
             {
                 console.log('item added to cart');
-                wish.deleteOne({item_code:id,number:number,seed:item,cost:cost},function(err){
+                wish.deleteOne({item_code:item_code,number:number},function(err){
                     if(err)
                     {
                         console.log('cant delete the wish');
@@ -327,7 +336,9 @@ app.post('/remove_wish',(req,res)=>{
     }
     else
     {
-        wish.deleteMany({item_code:id,number:number,seed:item,cost:cost},function(err){
+        const number=req.body.number;
+        const item_code=req.body.item_code;
+        wish.deleteMany({item_code:item_code,number:number},function(err){
             if(err)
             {
                 console.log('cant delete the wish');
@@ -348,14 +359,18 @@ app.post('/remove_wish',(req,res)=>{
 })
 app.post('/add-cart',(req,res)=>{
     const number=req.body.number;
-    const id=req.body.id;
-    const item=req.body.seed;
+    const item_code=req.body.item_code;
+    const item_name=req.body.item_name;
     const cost=req.body.cost;
+    const quantity=req.body.quantity;
+    const image_url=req.body.image_url;
     const newcart=new cart({
-        item_code:id,
+        item_code:item_code,
         number:number,
-        seed:item,
+        item_name:item_name,
         cost:cost,
+        quantity:quantity,
+        image_url:image_url
     })
     newcart.save(function(err)
     {
@@ -387,7 +402,7 @@ app.post('/add-cart',(req,res)=>{
                                     {
                                         data: docs,
                                         number:req.session.number,
-                                        move_id:id,
+                                        move_id:item_code,
                                         cart_data:cart_list,
                                         wish_data:wish_list
                                     });
@@ -411,14 +426,18 @@ app.post('/add-cart',(req,res)=>{
 
 app.post('/add-wish',(req,res)=>{
     const number=req.body.number;
-    const id=req.body.id;
-    const item=req.body.seed;
+    const item_code=req.body.item_code;
+    const item_name=req.body.item_name;
     const cost=req.body.cost;
+    const quantity=req.body.quantity;
+    const image_url=req.body.image_url;
     const newwish=new wish({
-        item_code:id,
+        item_code:item_code,
         number:number,
-        seed:item,
+        item_name:item_name,
         cost:cost,
+        quantity:quantity,
+        image_url:image_url
     })
     newwish.save(function(err)
     {
@@ -450,7 +469,7 @@ app.post('/add-wish',(req,res)=>{
                                     {
                                         data: docs,
                                         number:req.session.number,
-                                        move_id:id,
+                                        move_id:item_code,
                                         cart_data:cart_list,
                                         wish_data:wish_list
                                     });
