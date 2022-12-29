@@ -10,7 +10,7 @@ const authToken = "f21e4916425d484784db0265ba4a3e9a";
 const client = require("twilio")(accountSid, authToken);
 
 
-app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: false, cookie:{ maxAge: 60000},}));
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: false, cookie:{ maxAge: 24*60*60*1000},}));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.set('view engine', 'ejs');
